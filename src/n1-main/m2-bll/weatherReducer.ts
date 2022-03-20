@@ -1,6 +1,13 @@
 import {weatherApi} from "../m3-dall/API";
 import {Dispatch} from "redux";
 
+
+type WeatherType = {
+    main: string
+    description: string
+    icon: string
+}
+
 export type WeatherStateType = {
     dt_txt: string
     main: {
@@ -9,11 +16,7 @@ export type WeatherStateType = {
         temp_min: number
         temp_max: number
     }
-    weather: {
-        main: string
-        description: string
-        icon: string
-    }
+    weather: WeatherType[]
     wind: {
         speed: number
     }
@@ -35,11 +38,11 @@ const initialWeatherState: InitialWeatherStateType = {
                 temp_min: 0,
                 temp_max: 0,
             },
-            weather: {
+            weather:[ {
                 main: "",
                 description: "",
                 icon: "",
-            },
+            }],
             wind: {
                 speed: 0,
             },

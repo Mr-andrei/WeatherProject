@@ -2,8 +2,10 @@ import {ChangeEvent, useEffect, useState} from "react";
 import {useDebounce} from "use-debounce";
 import {useDispatch, useSelector} from "react-redux";
 import {WeatherStateType, weatherTC} from "../../../m2-bll/weatherReducer";
-import {weatherApi, WeatherType} from "../../../m3-dall/API";
 import {MainWeatherType} from "../../../m2-bll/store";
+import {fromKelvinToCelsius} from "../../../m4-functions/generalFunctionTemperatur";
+import {getIcons} from "../../../m4-functions/getIcons";
+import sunnyIcon from "./../../../../picture/sunny-icon.png"
 
 
 export const Main = () => {
@@ -22,12 +24,8 @@ export const Main = () => {
 
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         SetValueInput(e.currentTarget.value)
-
     }
-    function rebildKelvin (value:number){
-        return Math.round( value - 273)
 
-    }
 
     const onClickHandler = () => {
 
@@ -44,13 +42,15 @@ export const Main = () => {
             <div>
                 {filterWeathers.map((w, i) =>{
                    return <div style={{display:"flex"}}>
-                    <div style={{border:"1px solid black", width: "100px"}}>
+                    <div style={{border:"1px solid black", }}>
+                        <div>
+                            <img src={getIcons (w.weather[0].main, w.weather[0].description)} alt="weather"/>
 
-                        <span> temp day: {w.sys.pod === "d" && rebildKelvin(w.main.temp)}</span>
-                        <span> feels like: {w.sys.pod === "d" && rebildKelvin(w.main.feels_like)}</span>
+                        </div>
+                        <span> temp day: {w.sys.pod === "d" && fromKelvinToCelsius(w.main.temp)}</span>
+                        <span> feels like: {w.sys.pod === "d" && fromKelvinToCelsius(w.main.feels_like)}</span>
 
-                        {/*<span> temp night: {w.sys.pod === "n" &&  rebildKelvin(w.main.temp)}</span>*/}
-                        {/*<span> feels_like: {w.sys.pod === "n" && rebildKelvin(w.main.feels_like)}</span>*/}
+
 
                     </div>
                 </div>})}
