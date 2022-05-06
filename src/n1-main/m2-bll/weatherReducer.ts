@@ -70,7 +70,7 @@ export const weatherTC = (city: string) => async (dispatch: Dispatch<DispatchTyp
         // console.log(res.data.list)
          dispatch(getWeather(res.data.list))
     } catch (e: any) {
-        console.log(e)
+        // console.log(e.response.message)
     }
 }
 

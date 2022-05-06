@@ -1,10 +1,18 @@
 import React from 'react';
-import './App.css';
+import style from './App.module.css';
 import {Main} from "../components/main/Main";
+import bacSun from "./../../../picture/bacSun2.jpg"
 
 function App() {
+
+    const styles = {
+        background: `url(${bacSun})`,
+        backgroundPosition: "center",
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat"
+    }
     return (
-        <div>
+        <div style={styles} className={style.wrapper}>
             <Main/>
         </div>
     );
