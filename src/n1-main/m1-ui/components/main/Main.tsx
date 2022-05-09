@@ -1,6 +1,5 @@
 import style from "./main.module.css"
-import {ChangeEvent,KeyboardEvent,  useState} from "react";
-import {useDebounce} from "use-debounce";
+import {ChangeEvent, KeyboardEvent, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {WeatherStateType, weatherTC} from "../../../m2-bll/weatherReducer";
 import {MainWeatherType} from "../../../m2-bll/store";
@@ -8,27 +7,24 @@ import {fromKelvinToCelsius} from "../../../m4-functions/generalFunctionTemperat
 import {getIcons} from "../../../m4-functions/getIcons";
 import {getWeekDay} from "../../../m4-functions/gettingDayOfTheWeek";
 import searchIcon from "./../../../../picture/searchInput.svg"
-
+import {ErrorWindow} from "../errWindow/ErrorWindow";
 
 
 export const Main = () => {
     const dispatch = useDispatch()
     const [valueInput, SetValueInput] = useState<string>("")
 
+
     const weathers = useSelector<MainWeatherType, WeatherStateType[]>(state => state.weather.mainData)
+    const errorStatus = useSelector<MainWeatherType, boolean >(state => state.weather.errorStatus)
+    const errorText = useSelector<MainWeatherType, string >(state => state.weather.errorText)
     const filterWeathers = weathers.filter(w => w.dt_txt.includes("15:00:00"))
 
 
-    const valuetext = useDebounce(valueInput, 1000);
-
-    // useEffect(() => {
-    //     if (valuetext[0] !== "") {
-    //
-    //     }
-    // }, [valuetext[0]])
     const keyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
         if (e.charCode === 13) {
             dispatch(weatherTC(valueInput))
+            SetValueInput("")
         }
     }
 
@@ -45,6 +41,7 @@ export const Main = () => {
                     <img src={searchIcon} alt=""/>
                 </div>
                 <input
+                    value={valueInput}
                     onKeyPress={keyPressHandler}
                     placeholder={"Search your city"}
                     className={style.input}
@@ -60,18 +57,18 @@ export const Main = () => {
                                 <span>{getWeekDay(w.dt_txt)}</span>
                             </div>
                             <div className={style.block_img}>
-                                <img className={style.img} src={getIcons(w.weather[0].main, w.weather[0].description)} alt="weather"/>
-
+                                <img className={style.img} src={getIcons(w.weather[0].main, w.weather[0].description)}
+                                     alt="weather"/>
                             </div>
                             <div className={style.block_day}>
-                            <span> Temp day: {w.sys.pod === "d" && fromKelvinToCelsius(w.main.temp)}</span>
-                            <span> Feels like: {w.sys.pod === "d" && fromKelvinToCelsius(w.main.feels_like)}</span>
-
+                                <span> Temp day: {w.sys.pod === "d" && fromKelvinToCelsius(w.main.temp)}</span>
+                                <span> Feels like: {w.sys.pod === "d" && fromKelvinToCelsius(w.main.feels_like)}</span>
                             </div>
                         </div>
                     </div>
                 })}
             </div>
+            {errorStatus && <ErrorWindow errorText={errorText} />}
         </div>
     )
 }

@@ -26,6 +26,8 @@ export type WeatherStateType = {
 
 type InitialWeatherStateType = {
     mainData: WeatherStateType[]
+    errorStatus:boolean
+    errorText: string
 }
 
 const initialWeatherState: InitialWeatherStateType = {
@@ -48,34 +50,46 @@ const initialWeatherState: InitialWeatherStateType = {
             },
             sys: {pod: ''}
         }
-    ]
+    ],
+    errorStatus:false,
+    errorText:""
 }
 
 
-export const weatherReducer = (state = initialWeatherState, action: ActionsType): InitialAuthStateType => {
+export const weatherReducer = (state = initialWeatherState, action: ActionsType): InitialWeatherStateType => {
     switch (action.type) {
         case "GET_WEATHER_TYPE":
             return {...state, mainData: action.data}
+        case "SET_ERROR":{
+            return {...state, errorStatus:action.error}
+        }
+        case "SET_ERROR_TEXT":{
+            return {...state, errorText:action.errorText}
+        }
         default :
             return {...state}
     }
 }
 
-const getWeather = (data: WeatherStateType[]) => ({type: "GET_WEATHER_TYPE", data})
+const getWeather = (data: WeatherStateType[]) => ({type: "GET_WEATHER_TYPE", data} as const)
+export const setError = (error:boolean) => ({type: "SET_ERROR", error}as const)
+const setErrorText = (errorText:string) => ({type: "SET_ERROR_TEXT", errorText}as const)
 
 export const weatherTC = (city: string) => async (dispatch: Dispatch<DispatchType>) => {
 
     try {
         let res = await weatherApi.getWeather(city)
-        // console.log(res.data.list)
          dispatch(getWeather(res.data.list))
     } catch (e: any) {
-        // console.log(e.response.message)
+        dispatch(setError(true))
+        dispatch(setErrorText(e.response.data.message))
+
     }
 }
 
 
 type DispatchType = ActionsType
 type ActionsType = ReturnType<typeof getWeather>
+    | ReturnType<typeof setError>
+    | ReturnType<typeof setErrorText>
 
-export type InitialAuthStateType = typeof initialWeatherState;
