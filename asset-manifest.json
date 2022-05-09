@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/WeatherProject/static/css/main.6501f295.css",
+    "main.js": "/WeatherProject/static/js/main.3c52d9a2.js",
+    "static/js/787.28cb0dcd.chunk.js": "/WeatherProject/static/js/787.28cb0dcd.chunk.js",
+    "static/media/drizzle.png": "/WeatherProject/static/media/drizzle.0a12d4301617a13eaf9b.png",
+    "static/media/bacSun2.jpg": "/WeatherProject/static/media/bacSun2.d7f27825f5d5d4960bcc.jpg",
+    "static/media/cloudy-icon.png": "/WeatherProject/static/media/cloudy-icon.fde81dd48463f31e916a.png",
+    "static/media/sunny-icon.png": "/WeatherProject/static/media/sunny-icon.eb9212b0080b79dab1bb.png",
+    "static/media/snow-icon.png": "/WeatherProject/static/media/snow-icon.22946379aa5d5e5ff3e2.png",
+    "static/media/rain-icon.png": "/WeatherProject/static/media/rain-icon.4250c6d8b94cb98d75d9.png",
+    "static/media/thunder-lightning-storm-icon.png": "/WeatherProject/static/media/thunder-lightning-storm-icon.3036ac60e03d003ee349.png",
+    "static/media/cloudy-partly-icon.png": "/WeatherProject/static/media/cloudy-partly-icon.3e74ef351dfe7481e4a1.png",
+    "static/media/hazy-icon.png": "/WeatherProject/static/media/hazy-icon.a7d50369d54ba7f1f856.png",
+    "static/media/searchInput.svg": "/WeatherProject/static/media/searchInput.5e71efd59e1286616282837ee2f362c4.svg",
+    "index.html": "/WeatherProject/index.html",
+    "main.6501f295.css.map": "/WeatherProject/static/css/main.6501f295.css.map",
+    "main.3c52d9a2.js.map": "/WeatherProject/static/js/main.3c52d9a2.js.map",
+    "787.28cb0dcd.chunk.js.map": "/WeatherProject/static/js/787.28cb0dcd.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.6501f295.css",
+    "static/js/main.3c52d9a2.js"
+  ]
+}
